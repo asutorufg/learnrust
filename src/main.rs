@@ -19,5 +19,14 @@ fn main() {
     // hosting::vector_test::vct();
     // hosting::string_test::string();
     // hosting::hashmap_test::hashmap();
-    hosting::error_test::error();
+    // hosting::error_test::error();
+    // hosting::trait_test::get_max_number();
+    // hosting::trait_test::struct_def();
+    // hosting::trait_test::trait_test();
+
+    // hosting::lifecycle_test::longest_test();
+    // hosting::lifecycle_test::it();
+
+    hosting::closure_test::closure();
+    hosting::closure_test::closure2();
 }
