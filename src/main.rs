@@ -27,6 +27,23 @@ fn main() {
     // hosting::lifecycle_test::longest_test();
     // hosting::lifecycle_test::it();
 
-    hosting::closure_test::closure();
-    hosting::closure_test::closure2();
+    // hosting::closure_test::closure();
+    // hosting::closure_test::closure2();
+    // hosting::closure_test::closure3();
+
+    // hosting::iterator_test::filters_by_size();
+    // hosting::iterator_test::counter();
+
+    // hosting::smartpointers_test::smart_pointers();
+    // hosting::smartpointers_test::deref_trait();
+    // hosting::smartpointers_test::force_deref_trait();
+    // hosting::smartpointers_test::drop_trait();
+    // hosting::smartpointers_test::rc_c();
+
+    // hosting::thread_test::thread_t();
+    // hosting::thread_test::thread_t_move();
+    // hosting::thread_test::thread_t_channel();
+    // hosting::thread_test::thread_t_multiple_thread_to_one_channel();
+    hosting::thread_test::thread_t_mutex();
+    hosting::thread_test::thread_t_mutex_arc();
 }

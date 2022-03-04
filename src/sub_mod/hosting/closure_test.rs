@@ -1,4 +1,5 @@
 pub fn closure() {
+    println!("closure");
     let expensive_closure = |num| {
         println!("calculating slowly...");
         num
@@ -39,6 +40,7 @@ where
 }
 
 pub fn closure2() {
+    println!("\nclosure2");
     let mut expensive_closure = Cacher::new(|num| {
         println!("calculating slow...");
         num
@@ -46,4 +48,16 @@ pub fn closure2() {
 
     println!("enter:1, get:{}", expensive_closure.value(1));
     println!("enter:2, get:{}", expensive_closure.value(2));
+}
+
+pub fn closure3() {
+    println!("\nclosure3");
+    let x = 4;
+    let equal_to_x = |num| num == x;
+
+    // * 使用move关键字会将x的所有权强制移进闭包内；
+    // let equal_to_x = move |num| num == x;
+
+    println!("{}", equal_to_x(1));
+    println!("{}", equal_to_x(4));
 }
