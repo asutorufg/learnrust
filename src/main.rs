@@ -44,6 +44,8 @@ fn main() {
     // hosting::thread_test::thread_t_move();
     // hosting::thread_test::thread_t_channel();
     // hosting::thread_test::thread_t_multiple_thread_to_one_channel();
-    hosting::thread_test::thread_t_mutex();
-    hosting::thread_test::thread_t_mutex_arc();
+    // hosting::thread_test::thread_t_mutex();
+    // hosting::thread_test::thread_t_mutex_arc();
+
+    hosting::object_test::object_t_average();
 }

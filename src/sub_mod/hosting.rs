@@ -5,6 +5,7 @@ pub mod hashmap_test;
 pub mod ip_addr;
 pub mod iterator_test;
 pub mod lifecycle_test;
+pub mod object_test;
 pub mod smartpointers_test;
 pub mod string_test;
 pub mod test;
