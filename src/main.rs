@@ -48,4 +48,6 @@ fn main() {
     // hosting::thread_test::thread_t_mutex_arc();
 
     hosting::object_test::object_t_average();
+    hosting::object_test::struct_trait_test();
+    hosting::object_test::object_t_post();
 }
