@@ -47,7 +47,21 @@ fn main() {
     // hosting::thread_test::thread_t_mutex();
     // hosting::thread_test::thread_t_mutex_arc();
 
-    hosting::object_test::object_t_average();
-    hosting::object_test::struct_trait_test();
-    hosting::object_test::object_t_post();
+    // hosting::object_test::object_t_average();
+    // hosting::object_test::struct_trait_test();
+    // hosting::object_test::object_t_post();
+
+    // hosting::match_test::match_t_if_let();
+    // hosting::match_test::match_t_value();
+    // hosting::match_test::match_t_var();
+    // hosting::match_test::match_t_struct();
+    // hosting::match_test::match_t_enum();
+
+    // hosting::async_test::async_test();
+
+    // match
+    match sub_mod::stream::connect::connect() {
+        Ok(_) => print!("successful"),
+        Err(err) => println!("stream connect failed: {}", err),
+    }
 }

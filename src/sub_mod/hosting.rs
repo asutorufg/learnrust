@@ -1,3 +1,4 @@
+pub mod async_test;
 pub mod closure_test;
 pub mod error_test;
 pub mod game;
@@ -5,6 +6,7 @@ pub mod hashmap_test;
 pub mod ip_addr;
 pub mod iterator_test;
 pub mod lifecycle_test;
+pub mod match_test;
 pub mod object_test;
 pub mod smartpointers_test;
 pub mod string_test;
