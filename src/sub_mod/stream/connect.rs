@@ -1,5 +1,6 @@
-use hyper::Body;
 use hyper::{service::Service, Uri};
+use hyper::{Body, Response};
+use std::fmt::Debug;
 use std::{
     future::Future,
     net::SocketAddr,
@@ -36,7 +37,7 @@ pub async fn connect() -> Result<(), ConnectError> {
 
     loop {
         ts.writable().await.expect("wait stream writable failed");
-        match ts.try_write(b"CONNECT ip.sb HTTP/1.1\r\n\r\n") {
+        match ts.try_write(b"CONNECT www.google.com:443 HTTP/1.1\r\n\r\n") {
             Ok(_) => {
                 println!("write connect request successful");
                 break;
@@ -67,7 +68,16 @@ pub async fn connect() -> Result<(), ConnectError> {
 
     println!("{}", std::str::from_utf8_mut(&mut buffer).expect("msg"));
 
-    let (mut sender, connection) = hyper::client::conn::handshake(ts)
+    let cx = native_tls::TlsConnector::builder()
+        .build()
+        .expect("build tls connector failed");
+    let cx = tokio_native_tls::TlsConnector::from(cx);
+    let stream = cx
+        .connect("www.google.com", ts)
+        .await
+        .expect("tls connect failed");
+
+    let (mut sender, connection) = hyper::client::conn::handshake(stream)
         .await
         .expect("handshake custom stream failed");
 
@@ -77,16 +87,17 @@ pub async fn connect() -> Result<(), ConnectError> {
         }
     });
 
-    let req = hyper::Request::get("http://ip.sb/".parse::<hyper::Uri>().unwrap())
-        .header("Host", "ip.sb")
+    let req = hyper::Request::get("https://www.google.com/".parse::<hyper::Uri>().unwrap())
+        .header("Host", "www.google.com")
         .header("User-Agent", "curl/v2.4.1")
         .body(Body::empty())
         .expect("create request failed");
 
-    let resp = sender
-        .send_request(req)
-        .await
-        .expect("send get request failed");
+    let resp: Response<Body>;
+    match sender.send_request(req).await {
+        Ok(r) => resp = r,
+        Err(e) => panic!("{}", e),
+    }
 
     let body_bytes = hyper::body::to_bytes(resp.into_body())
         .await
@@ -157,12 +168,13 @@ impl Service<Uri> for LocalConnector {
 pub async fn connect3() -> Result<(), ConnectError> {
     let ts = tokio::net::TcpStream::connect("127.0.0.1:8188")
         .await
-        .expect("std stream to tokio stream failed");
+        .unwrap();
 
     let (mut sender, connection) = hyper::client::conn::handshake(ts)
         .await
         .expect("handshake custom stream failed");
 
+    // let parts = connection.without_shutdown().await.expect("msg");
     tokio::spawn(async move {
         if let Err(e) = connection.await {
             eprintln!("Error in connection: {}", e);
